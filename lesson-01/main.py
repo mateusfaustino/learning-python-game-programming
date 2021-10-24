@@ -43,7 +43,8 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
+    
+   
     drawObject(ball,"ellipse", main_color)
     drawObject(player,"rect", main_color)
     drawObject(opponent,"rect", main_color)
