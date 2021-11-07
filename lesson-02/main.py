@@ -2,6 +2,7 @@ import pygame
 import sys
 from components.screen import Screen
 from components.ball import Ball
+from components.paddle import Paddle
 # Inicialização
 pygame.init()
 clock = pygame.time.Clock()
@@ -10,27 +11,9 @@ clock = pygame.time.Clock()
 screen = Screen("Pong", 720, 1280,"#4C956C" )
 screen.fill()
 
-main_color = (200,200,200)
-
-def half(value):
-    return value/2
-
-def createObject(position_x, position_y, object_width, object_height):
-    return pygame.Rect(position_x, position_y, object_width, object_height)
-
-def drawObject(object, shape, color):
-    if shape=="ellipse":
-        pygame.draw.ellipse(screen.display, color, object)
-    elif shape=="rect":
-        pygame.draw.rect(screen.display, color, object)
-    else:
-        print (shape,"não é reconhecido como um valor válido")
-
-ball = Ball ([half(screen.width)-half(30), half(screen.height)-half(30)],[30,30],"#F5EE9E")
-
-player = createObject(screen.limit_right-20, half(screen.height)-half(140), 10, 140)
-opponent = createObject(10, half(screen.height)-half(140), 10, 140)
-
+ball = Ball ([screen.getMidWidthCentralized(30), screen.getMidHeightCentralized(30)],[30,30],"#F5EE9E")
+player = Paddle([screen.limit_right-20,screen.getMidHeightCentralized(140)],[10, 140],(200,200,200))
+opponent = Paddle([10,screen.getMidHeightCentralized(140)],[10, 140],(200,200,200))
 
 while True:
 
@@ -52,9 +35,13 @@ while True:
     if ball.right >= screen.limit_right or ball.left <= screen.limit_left:
         ball.setSpeed(-ball.speedX, ball.speedY)
     
+    if ball.colliderect(player) or ball.colliderect(opponent):
+        ball.setSpeed(-ball.speedX, ball.speedY)
+    
+
     ball.draw(screen)
-    drawObject(player,"rect", main_color)
-    drawObject(opponent,"rect", main_color)
+    player.draw(screen)
+    opponent.draw(screen)
     
     # Atualizando a janela 60fps
     pygame.display.flip()

@@ -16,3 +16,16 @@ class Screen :
 
     def fill(self):
          self.display.fill(self.fill_color)
+    
+    def getMidHeight(self):
+        return self.height/2
+    
+    
+    def getMidWidth(self):
+        return self.width/2
+    
+    def getMidWidthCentralized(self,object_width):
+        return self.width/2 - object_width/2
+    
+    def getMidHeightCentralized(self, object_height):
+        return self.height/2 - object_height/2
