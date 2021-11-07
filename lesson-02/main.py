@@ -1,6 +1,7 @@
 import pygame
 import sys
 from components.screen import Screen
+from components.ball import Ball
 # Inicialização
 pygame.init()
 clock = pygame.time.Clock()
@@ -25,12 +26,11 @@ def drawObject(object, shape, color):
     else:
         print (shape,"não é reconhecido como um valor válido")
 
-ball = createObject(half(screen.width)-half(30), half(screen.height)-half(30), 30, 30)
+ball = Ball ([half(screen.width)-half(30), half(screen.height)-half(30)],[30,30],"#F5EE9E")
+
 player = createObject(screen.limit_right-20, half(screen.height)-half(140), 10, 140)
 opponent = createObject(10, half(screen.height)-half(140), 10, 140)
 
-ballSpeedX = 0.5 
-ballSpeedY = 0.5
 
 while True:
 
@@ -42,17 +42,17 @@ while True:
     
     # Atualização
     dt = clock.tick(60)
-    ball.x = ball.x + ballSpeedX * dt
-    ball.y = ball.y + ballSpeedY * dt
+    ball.x = ball.x + ball.speedX * dt
+    ball.y = ball.y + ball.speedY * dt
     screen.display.fill("#4C956C")
 
     if ball.bottom >= screen.limit_bottom or ball.top <= screen.limit_top:
-        ballSpeedY = -ballSpeedY
+        ball.setSpeed(ball.speedX, -ball.speedY)
     
     if ball.right >= screen.limit_right or ball.left <= screen.limit_left:
-        ballSpeedX = -ballSpeedX
+        ball.setSpeed(-ball.speedX, ball.speedY)
     
-    drawObject(ball,"ellipse", "#F5EE9E")
+    ball.draw(screen)
     drawObject(player,"rect", main_color)
     drawObject(opponent,"rect", main_color)
     
