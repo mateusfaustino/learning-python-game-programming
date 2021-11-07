@@ -15,3 +15,14 @@ class Ball (pygame.Rect):
 
     def draw(self,screen):
         pygame.draw.ellipse(screen.display, self.color, self)
+    
+    def colid_on_limits(self,screen):
+        if self.bottom >= screen.limit_bottom or self.top <= screen.limit_top:
+            self.setSpeed(self.speedX, -self.speedY)
+    
+        if self.right >= screen.limit_right or self.left <= screen.limit_left:
+            self.setSpeed(-self.speedX, self.speedY)
+    
+    def colid_on_paddle(self, paddle):
+        if self.colliderect(paddle):
+            self.setSpeed(-self.speedX, self.speedY)

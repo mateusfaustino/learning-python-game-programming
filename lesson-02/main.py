@@ -29,15 +29,9 @@ while True:
     ball.y = ball.y + ball.speedY * dt
     screen.display.fill("#4C956C")
 
-    if ball.bottom >= screen.limit_bottom or ball.top <= screen.limit_top:
-        ball.setSpeed(ball.speedX, -ball.speedY)
-    
-    if ball.right >= screen.limit_right or ball.left <= screen.limit_left:
-        ball.setSpeed(-ball.speedX, ball.speedY)
-    
-    if ball.colliderect(player) or ball.colliderect(opponent):
-        ball.setSpeed(-ball.speedX, ball.speedY)
-    
+    ball.colid_on_limits(screen)
+    ball.colid_on_paddle(player)
+    ball.colid_on_paddle(opponent)
 
     ball.draw(screen)
     player.draw(screen)
