@@ -1,5 +1,7 @@
 import pygame
 import sys
+import random
+
 from components.screen import Screen
 from components.ball import Ball
 from components.paddle import Paddle
@@ -15,15 +17,22 @@ ball = Ball ([screen.getMidWidthCentralized(30), screen.getMidHeightCentralized(
 player = Paddle([screen.limit_right-20,screen.getMidHeightCentralized(140)],[10, 140],(200,200,200))
 opponent = Paddle([10,screen.getMidHeightCentralized(140)],[10, 140],(200,200,200))
 
-while True:
+def draw():
+    ball.draw(screen)
+    player.draw(screen)
+    opponent.draw(screen)
+    pygame.display.flip()
 
-    # Processando as entradas (eventos)
+def inputs():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-    
-    # Atualização
+
+    (x,y)= pygame.mouse.get_pos()
+    player.y = y - 70
+
+def update():
     dt = clock.tick(60)
     ball.x = ball.x + ball.speedX * dt
     ball.y = ball.y + ball.speedY * dt
@@ -32,10 +41,12 @@ while True:
     ball.colid_on_limits(screen)
     ball.colid_on_paddle(player)
     ball.colid_on_paddle(opponent)
+    ball.go_out(screen)
+    opponent.move_towards_ball(ball)
 
-    ball.draw(screen)
-    player.draw(screen)
-    opponent.draw(screen)
+while True:
+    inputs()
+    update()
+    draw()
+  
     
-    # Atualizando a janela 60fps
-    pygame.display.flip()
