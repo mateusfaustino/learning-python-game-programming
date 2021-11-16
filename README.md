@@ -5,8 +5,8 @@ This repository has the lessons of the gamming programming course
 Na faculdade, estou fazendo a disciplina de programação para jogos I. Para aprender a criar games em Python, estou desenvolvendo o Pong, um clássico muito simples mas que contém todos os princípios e boas práticas na construção de jogos.
 Criei este repositório publico no Github para compartilhar a minha evolução. Pretendo também fazer projetos pessoais para desenvolver ainda mais minhas habilidades em programação para jogos.
 
-# Como cada aula está organizada?
-Cada aula será colocada em uma pasta do tipo lesson (lesson-01, lesson-02 ..., lesson-xx).
+# Como este arquivo está organizado?
+Todo o código está situado na pasta src.
 
 # Que biblioteca será usada?
 O Pygame. Pygame é um módulo do Python usado para criar video games. Isso te permite criar completas funcionalidades de jogos e multimídea na linguagem Python.
